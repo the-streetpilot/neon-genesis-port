@@ -20,13 +20,15 @@ const skillCategories = [
 
 const SkillsSection = () => {
   return (
-    <section id="skills" className="py-24 md:py-32 relative">
-      {/* Background decoration */}
+    <section id="skills" className="py-24 md:py-32 relative overflow-hidden">
+      {/* Background decoration with parallax */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-primary/5 animate-pulse" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-primary/10 animate-pulse" style={{ animationDelay: '0.5s' }} />
       
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 scroll-animate">
           <p className="text-primary text-sm font-medium tracking-widest uppercase mb-3">
             Technical Skills
           </p>
@@ -36,7 +38,7 @@ const SkillsSection = () => {
         </div>
 
         {/* Skills Grid */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-6 stagger-children">
           {skillCategories.map((category, categoryIndex) => (
             <div
               key={categoryIndex}

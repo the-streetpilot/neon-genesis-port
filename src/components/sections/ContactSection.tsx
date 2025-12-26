@@ -39,13 +39,14 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-24 md:py-32 relative">
+    <section id="contact" className="py-24 md:py-32 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-t from-primary/5 via-transparent to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[150px]" />
       
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 scroll-animate">
           <p className="text-primary text-sm font-medium tracking-widest uppercase mb-3">
             Contact
           </p>
@@ -56,7 +57,7 @@ const ContactSection = () => {
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Contact Info */}
-          <div className="space-y-8">
+          <div className="space-y-8 scroll-animate-left">
             <p className="text-lg text-muted-foreground">
               Have a project in mind or want to collaborate? Feel free to reach out. I'm always excited to work on new and challenging projects.
             </p>
@@ -103,7 +104,7 @@ const ContactSection = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="glass rounded-2xl p-8">
+          <div className="glass rounded-2xl p-8 scroll-animate-right">
             <h3 className="text-xl font-semibold mb-6">Send a Message</h3>
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
