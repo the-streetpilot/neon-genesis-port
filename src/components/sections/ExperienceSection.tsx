@@ -47,10 +47,11 @@ const experiences = [
 
 const ExperienceSection = () => {
   return (
-    <section id="experience" className="py-24 md:py-32 relative">
+    <section id="experience" className="py-24 md:py-32 relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-64 h-64 rounded-full bg-primary/5 blur-[100px] animate-float-slow" />
       <div className="container mx-auto px-4 md:px-6">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 scroll-animate">
           <p className="text-primary text-sm font-medium tracking-widest uppercase mb-3">
             Work Experience
           </p>

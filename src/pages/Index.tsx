@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Preloader from '@/components/Preloader';
 import AnimatedBackground from '@/components/AnimatedBackground';
+import FloatingElements from '@/components/FloatingElements';
 import Navigation from '@/components/Navigation';
 import ScrollProgress from '@/components/ScrollProgress';
 import HeroSection from '@/components/sections/HeroSection';
@@ -16,7 +17,7 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Add scroll animation observer
+    // Enhanced scroll animation observer with multiple animation types
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -25,11 +26,23 @@ const Index = () => {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
     );
 
-    document.querySelectorAll('.scroll-animate').forEach((el) => {
-      observer.observe(el);
+    // Observe all scroll animation elements
+    const selectors = [
+      '.scroll-animate',
+      '.scroll-animate-left',
+      '.scroll-animate-right',
+      '.scroll-animate-scale',
+      '.scroll-animate-rotate',
+      '.stagger-children'
+    ];
+    
+    selectors.forEach(selector => {
+      document.querySelectorAll(selector).forEach((el) => {
+        observer.observe(el);
+      });
     });
 
     return () => observer.disconnect();
@@ -40,8 +53,9 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <AnimatedBackground />
+      <FloatingElements />
       <ScrollProgress />
       <Navigation />
       

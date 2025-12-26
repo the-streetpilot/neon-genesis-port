@@ -51,13 +51,14 @@ const projects = [
 
 const ProjectsSection = () => {
   return (
-    <section id="projects" className="py-24 md:py-32 relative">
+    <section id="projects" className="py-24 md:py-32 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-primary/5 blur-[120px] animate-float-medium" />
       
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 scroll-animate">
           <p className="text-primary text-sm font-medium tracking-widest uppercase mb-3">
             Portfolio
           </p>
@@ -67,7 +68,7 @@ const ProjectsSection = () => {
         </div>
 
         {/* Featured Projects */}
-        <div className="grid lg:grid-cols-2 gap-8 mb-12">
+        <div className="grid lg:grid-cols-2 gap-8 mb-12 stagger-children">
           {projects.filter(p => p.featured).map((project, index) => (
             <div
               key={index}

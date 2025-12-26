@@ -1,7 +1,21 @@
 import { ArrowDown, Download, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useEffect, useState } from 'react';
 
 const HeroSection = () => {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePos({
+        x: (e.clientX / window.innerWidth - 0.5) * 30,
+        y: (e.clientY / window.innerHeight - 0.5) * 30,
+      });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
@@ -10,7 +24,33 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative pt-20">
+    <section id="home" className="min-h-screen flex items-center justify-center relative pt-20 overflow-hidden">
+      {/* Animated background rings */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div 
+          className="absolute w-[600px] h-[600px] rounded-full border border-primary/10 animate-pulse"
+          style={{ 
+            transform: `translate(${mousePos.x * 0.2}px, ${mousePos.y * 0.2}px)`,
+            transition: 'transform 0.5s ease-out'
+          }}
+        />
+        <div 
+          className="absolute w-[800px] h-[800px] rounded-full border border-primary/5 animate-pulse"
+          style={{ 
+            animationDelay: '0.5s',
+            transform: `translate(${mousePos.x * 0.1}px, ${mousePos.y * 0.1}px)`,
+            transition: 'transform 0.5s ease-out'
+          }}
+        />
+        <div 
+          className="absolute w-[1000px] h-[1000px] rounded-full border border-primary/[0.03]"
+          style={{ 
+            transform: `translate(${mousePos.x * 0.05}px, ${mousePos.y * 0.05}px)`,
+            transition: 'transform 0.5s ease-out'
+          }}
+        />
+      </div>
+
       <div className="container mx-auto px-4 md:px-6 text-center relative z-10">
         {/* Subtitle */}
         <p 
@@ -20,13 +60,17 @@ const HeroSection = () => {
           Graphic Designer & Web Developer
         </p>
 
-        {/* Main Heading */}
+        {/* Main Heading with parallax effect */}
         <h1 
           className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 animate-fade-in-up"
-          style={{ animationDelay: '0.4s' }}
+          style={{ 
+            animationDelay: '0.4s',
+            transform: `translate(${mousePos.x * 0.05}px, ${mousePos.y * 0.05}px)`,
+            transition: 'transform 0.3s ease-out'
+          }}
         >
           <span className="text-foreground">Hi, I'm </span>
-          <span className="gradient-text">Varun Vinod</span>
+          <span className="gradient-text neon-text">Varun Vinod</span>
         </h1>
 
         {/* Tagline */}
@@ -37,12 +81,13 @@ const HeroSection = () => {
           Creating engaging and purpose-driven digital experiences through compelling visual design and responsive web development.
         </p>
 
-        {/* Quote */}
+        {/* Quote with shimmer effect */}
         <p 
-          className="text-sm md:text-base text-primary/80 italic max-w-xl mx-auto mb-10 animate-fade-in-up"
+          className="text-sm md:text-base text-primary/80 italic max-w-xl mx-auto mb-10 animate-fade-in-up relative"
           style={{ animationDelay: '0.7s' }}
         >
-          "Quality & Consistency is going to shape your Identity."
+          <span className="relative z-10">"Quality & Consistency is going to shape your Identity."</span>
+          <span className="absolute inset-0 animate-shimmer rounded-lg" />
         </p>
 
         {/* CTA Buttons */}
@@ -81,9 +126,9 @@ const HeroSection = () => {
           </Button>
         </div>
 
-        {/* Location Badge */}
+        {/* Location Badge with floating animation */}
         <div 
-          className="mt-12 inline-flex items-center gap-2 glass px-4 py-2 rounded-full animate-fade-in-up"
+          className="mt-12 inline-flex items-center gap-2 glass px-4 py-2 rounded-full animate-fade-in-up hover:shadow-neon-sm transition-shadow duration-300"
           style={{ animationDelay: '1s' }}
         >
           <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
@@ -102,9 +147,34 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Decorative elements */}
-      <div className="absolute top-1/4 left-10 w-32 h-32 rounded-full bg-primary/10 blur-[80px] animate-pulse" />
-      <div className="absolute bottom-1/4 right-10 w-40 h-40 rounded-full bg-primary/5 blur-[100px] animate-pulse" style={{ animationDelay: '1s' }} />
+      {/* Enhanced decorative elements with parallax */}
+      <div 
+        className="absolute top-1/4 left-10 w-32 h-32 rounded-full bg-primary/10 blur-[80px] animate-pulse"
+        style={{ 
+          transform: `translate(${mousePos.x * -0.3}px, ${mousePos.y * -0.3}px)`,
+          transition: 'transform 0.5s ease-out'
+        }}
+      />
+      <div 
+        className="absolute bottom-1/4 right-10 w-40 h-40 rounded-full bg-primary/5 blur-[100px] animate-pulse" 
+        style={{ 
+          animationDelay: '1s',
+          transform: `translate(${mousePos.x * 0.2}px, ${mousePos.y * 0.2}px)`,
+          transition: 'transform 0.5s ease-out'
+        }} 
+      />
+      <div 
+        className="absolute top-1/2 left-1/4 w-24 h-24 rounded-full bg-primary/8 blur-[60px]"
+        style={{ 
+          transform: `translate(${mousePos.x * 0.4}px, ${mousePos.y * 0.4}px)`,
+          transition: 'transform 0.5s ease-out'
+        }}
+      />
+
+      {/* Floating accent shapes */}
+      <div className="absolute top-20 right-1/4 w-4 h-4 border border-primary/30 rotate-45 animate-float-slow" />
+      <div className="absolute bottom-32 left-1/3 w-3 h-3 bg-primary/20 rounded-full animate-float-medium" />
+      <div className="absolute top-1/3 right-20 w-2 h-2 bg-primary/40 rounded-full animate-float-fast" />
     </section>
   );
 };

@@ -9,10 +9,16 @@ const highlights = [
 
 const AboutSection = () => {
   return (
-    <section id="about" className="py-24 md:py-32 relative">
-      <div className="container mx-auto px-4 md:px-6">
+    <section id="about" className="py-24 md:py-32 relative overflow-hidden">
+      {/* Background parallax elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-20 right-0 w-96 h-96 rounded-full bg-primary/5 blur-[120px] animate-float-slow" />
+        <div className="absolute bottom-20 left-0 w-64 h-64 rounded-full bg-primary/3 blur-[100px] animate-float-medium" />
+      </div>
+
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 scroll-animate">
           <p className="text-primary text-sm font-medium tracking-widest uppercase mb-3">
             About Me
           </p>
@@ -23,8 +29,8 @@ const AboutSection = () => {
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left - Image/Visual */}
-          <div className="relative">
-            <div className="glass rounded-3xl p-8 hover-glow transition-all duration-500">
+          <div className="relative scroll-animate-left">
+            <div className="glass rounded-3xl p-8 hover-glow transition-all duration-500 group">
               <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center relative overflow-hidden">
                 {/* Placeholder visual - can be replaced with actual image */}
                 <div className="text-8xl font-bold gradient-text">VV</div>
@@ -45,7 +51,7 @@ const AboutSection = () => {
           </div>
 
           {/* Right - Content */}
-          <div className="space-y-6">
+          <div className="space-y-6 scroll-animate-right">
             <p className="text-lg text-muted-foreground leading-relaxed">
               Varun Vinod is a Trivandrum-based <span className="text-foreground font-medium">Graphic Designer</span> and <span className="text-foreground font-medium">Web Developer</span> with over 6 years of freelance experience. He specializes in blending compelling visual design with responsive web development to create engaging and purpose-driven digital experiences.
             </p>
@@ -55,7 +61,7 @@ const AboutSection = () => {
             </p>
 
             {/* Highlights Grid */}
-            <div className="grid grid-cols-2 gap-4 pt-6">
+            <div className="grid grid-cols-2 gap-4 pt-6 stagger-children">
               {highlights.map((item, index) => (
                 <div
                   key={index}
