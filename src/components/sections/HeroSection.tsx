@@ -2,8 +2,12 @@ import { ArrowDown, Download, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
 
+const tagline = "Quality & Consistency is going to shape your Identity.";
+
 const HeroSection = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [displayedText, setDisplayedText] = useState('');
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -14,6 +18,22 @@ const HeroSection = () => {
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  // Typing animation effect
+  useEffect(() => {
+    let currentIndex = 0;
+    const typingInterval = setInterval(() => {
+      if (currentIndex <= tagline.length) {
+        setDisplayedText(tagline.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(typingInterval);
+        setIsTypingComplete(true);
+      }
+    }, 50);
+
+    return () => clearInterval(typingInterval);
   }, []);
 
   const scrollToSection = (href: string) => {
@@ -60,7 +80,7 @@ const HeroSection = () => {
           Graphic Designer & Web Developer
         </p>
 
-        {/* Main Heading with parallax effect */}
+        {/* Main Heading - removed glow effect */}
         <h1 
           className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 animate-fade-in-up"
           style={{ 
@@ -70,7 +90,7 @@ const HeroSection = () => {
           }}
         >
           <span className="text-foreground">Hi, I'm </span>
-          <span className="gradient-text neon-text">Varun Vinod</span>
+          <span className="gradient-text">Varun Vinod</span>
         </h1>
 
         {/* Tagline */}
@@ -81,13 +101,16 @@ const HeroSection = () => {
           Creating engaging and purpose-driven digital experiences through compelling visual design and responsive web development.
         </p>
 
-        {/* Quote with shimmer effect */}
+        {/* Typing Quote */}
         <p 
-          className="text-sm md:text-base text-primary/80 italic max-w-xl mx-auto mb-10 animate-fade-in-up relative"
+          className="text-sm md:text-base text-primary/80 italic max-w-xl mx-auto mb-10 animate-fade-in-up relative h-8"
           style={{ animationDelay: '0.7s' }}
         >
-          <span className="relative z-10">"Quality & Consistency is going to shape your Identity."</span>
-          <span className="absolute inset-0 animate-shimmer rounded-lg" />
+          <span className="relative z-10">
+            "{displayedText}
+            <span className={`inline-block w-0.5 h-5 bg-primary ml-1 align-middle ${isTypingComplete ? 'animate-pulse' : 'animate-blink'}`} />
+            "
+          </span>
         </p>
 
         {/* CTA Buttons */}
