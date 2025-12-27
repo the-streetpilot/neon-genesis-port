@@ -1,4 +1,5 @@
-import { Briefcase, Calendar } from 'lucide-react';
+import { Calendar } from 'lucide-react';
+import MacWindowFrame from '@/components/MacWindowFrame';
 
 const experiences = [
   {
@@ -81,29 +82,31 @@ const ExperienceSection = () => {
 
               {/* Content */}
               <div className={`ml-8 md:ml-0 md:w-1/2 ${index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
-                <div className="glass rounded-2xl p-6 hover-glow group">
-                  <div className={`flex items-center gap-2 mb-2 ${index % 2 === 0 ? 'md:justify-end' : ''}`}>
-                    {exp.current && (
-                      <span className="px-2 py-0.5 text-xs bg-primary/20 text-primary rounded-full">
-                        Current
-                      </span>
-                    )}
+                <MacWindowFrame title={`${exp.company.toLowerCase().replace(/\s+/g, '-')}.md`}>
+                  <div className="p-6">
+                    <div className={`flex items-center gap-2 mb-2 ${index % 2 === 0 ? 'md:justify-end' : ''}`}>
+                      {exp.current && (
+                        <span className="px-2 py-0.5 text-xs bg-primary/20 text-primary rounded-full">
+                          Current
+                        </span>
+                      )}
+                    </div>
+                    
+                    <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                      {exp.title}
+                    </h3>
+                    <p className="text-primary font-medium mb-2">{exp.company}</p>
+                    
+                    <div className={`flex items-center gap-2 text-sm text-muted-foreground mb-3 ${index % 2 === 0 ? 'md:justify-end' : ''}`}>
+                      <Calendar size={14} />
+                      {exp.period}
+                    </div>
+                    
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {exp.description}
+                    </p>
                   </div>
-                  
-                  <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                    {exp.title}
-                  </h3>
-                  <p className="text-primary font-medium mb-2">{exp.company}</p>
-                  
-                  <div className={`flex items-center gap-2 text-sm text-muted-foreground mb-3 ${index % 2 === 0 ? 'md:justify-end' : ''}`}>
-                    <Calendar size={14} />
-                    {exp.period}
-                  </div>
-                  
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {exp.description}
-                  </p>
-                </div>
+                </MacWindowFrame>
               </div>
 
               {/* Spacer for opposite side */}
