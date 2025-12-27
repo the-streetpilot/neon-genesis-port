@@ -1,5 +1,6 @@
 import { ExternalLink, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import MacWindowFrame from '@/components/MacWindowFrame';
 
 const projects = [
   {
@@ -70,10 +71,7 @@ const ProjectsSection = () => {
         {/* Featured Projects */}
         <div className="grid lg:grid-cols-2 gap-8 mb-12 stagger-children">
           {projects.filter(p => p.featured).map((project, index) => (
-            <div
-              key={index}
-              className="glass rounded-2xl overflow-hidden hover-glow group"
-            >
+            <MacWindowFrame key={index} title={`${project.title.toLowerCase().replace(/['\s]+/g, '-')}.tsx`} className="group">
               {/* Project Preview */}
               <div className="aspect-video bg-gradient-to-br from-primary/20 to-primary/5 relative overflow-hidden">
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -118,34 +116,33 @@ const ProjectsSection = () => {
                   ))}
                 </div>
               </div>
-            </div>
+            </MacWindowFrame>
           ))}
         </div>
 
         {/* Other Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
           {projects.filter(p => !p.featured).map((project, index) => (
-            <div
-              key={index}
-              className="glass rounded-xl p-5 hover-glow group cursor-pointer"
-            >
-              <h4 className="font-semibold mb-2 group-hover:text-primary transition-colors text-sm">
-                {project.title}
-              </h4>
-              <p className="text-muted-foreground text-xs mb-3 line-clamp-2">
-                {project.description}
-              </p>
-              <div className="flex flex-wrap gap-1">
-                {project.tags.slice(0, 2).map((tag, tagIndex) => (
-                  <span
-                    key={tagIndex}
-                    className="px-2 py-0.5 text-xs bg-secondary text-muted-foreground rounded"
-                  >
-                    {tag}
-                  </span>
-                ))}
+            <MacWindowFrame key={index} title={`project-${index + 1}.md`} className="group">
+              <div className="p-5">
+                <h4 className="font-semibold mb-2 group-hover:text-primary transition-colors text-sm">
+                  {project.title}
+                </h4>
+                <p className="text-muted-foreground text-xs mb-3 line-clamp-2">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-1">
+                  {project.tags.slice(0, 2).map((tag, tagIndex) => (
+                    <span
+                      key={tagIndex}
+                      className="px-2 py-0.5 text-xs bg-secondary text-muted-foreground rounded"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
+            </MacWindowFrame>
           ))}
         </div>
       </div>

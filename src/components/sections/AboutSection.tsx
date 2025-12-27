@@ -1,5 +1,11 @@
-import { MapPin, Calendar, Briefcase, Award } from 'lucide-react';
-import profileImage from '@/assets/profile-1.jpeg';
+import { useState, useEffect } from 'react';
+import { MapPin, Calendar, Briefcase, Award, ChevronLeft, ChevronRight } from 'lucide-react';
+import profileImage1 from '@/assets/profile-1.jpeg';
+import profileImage2 from '@/assets/profile-2.jpeg';
+import profileImage3 from '@/assets/profile-3.jpeg';
+import MacWindowFrame from '@/components/MacWindowFrame';
+
+const profileImages = [profileImage1, profileImage2, profileImage3];
 
 const highlights = [
   { icon: MapPin, label: 'Location', value: 'Kerala, India' },
@@ -9,6 +15,19 @@ const highlights = [
 ];
 
 const AboutSection = () => {
+  const [currentImage, setCurrentImage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % profileImages.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const goToImage = (index: number) => setCurrentImage(index);
+  const goNext = () => setCurrentImage((prev) => (prev + 1) % profileImages.length);
+  const goPrev = () => setCurrentImage((prev) => (prev - 1 + profileImages.length) % profileImages.length);
+
   return (
     <section id="about" className="py-24 md:py-32 relative overflow-hidden">
       {/* Background parallax elements */}
@@ -29,22 +48,50 @@ const AboutSection = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left - Image/Visual */}
-          <div className="relative scroll-animate-left">
-            <div className="glass rounded-3xl p-8 hover-glow transition-all duration-500 group">
-              <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center relative overflow-hidden">
-                {/* Profile Image */}
-                <img 
-                  src={profileImage} 
-                  alt="Varun Vinod" 
-                  className="w-full h-full object-cover rounded-2xl transition-transform duration-700 group-hover:scale-105"
-                />
-                
-                {/* Decorative elements */}
-                <div className="absolute top-4 right-4 w-20 h-20 rounded-full border border-primary/30 animate-pulse" />
-                <div className="absolute bottom-4 left-4 w-16 h-16 rounded-full bg-primary/10 blur-xl" />
+          {/* Left - Image Carousel with macOS frame */}
+          <div className="relative scroll-animate-left max-w-sm mx-auto lg:mx-0">
+            <MacWindowFrame title="profile.jpg">
+              <div className="relative aspect-square overflow-hidden group">
+                {/* Images */}
+                {profileImages.map((img, index) => (
+                  <img
+                    key={index}
+                    src={img}
+                    alt={`Varun Vinod ${index + 1}`}
+                    className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
+                      index === currentImage ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+                    }`}
+                  />
+                ))}
+
+                {/* Navigation Arrows */}
+                <button
+                  onClick={goPrev}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-background/50 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background/70"
+                >
+                  <ChevronLeft size={18} className="text-foreground" />
+                </button>
+                <button
+                  onClick={goNext}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-background/50 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background/70"
+                >
+                  <ChevronRight size={18} className="text-foreground" />
+                </button>
+
+                {/* Dots */}
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+                  {profileImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => goToImage(index)}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        index === currentImage ? 'bg-primary w-5' : 'bg-foreground/40 hover:bg-foreground/60'
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
+            </MacWindowFrame>
             
             {/* Floating badges */}
             <div className="absolute -top-4 -right-4 glass px-4 py-2 rounded-full animate-float">
@@ -68,35 +115,36 @@ const AboutSection = () => {
             {/* Highlights Grid */}
             <div className="grid grid-cols-2 gap-4 pt-6 stagger-children">
               {highlights.map((item, index) => (
-                <div
-                  key={index}
-                  className="glass rounded-xl p-4 hover-glow group cursor-default"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                      <item.icon size={20} className="text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground">{item.label}</p>
-                      <p className="text-sm font-medium text-foreground">{item.value}</p>
+                <MacWindowFrame key={index} className="!rounded-xl">
+                  <div className="p-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                        <item.icon size={20} className="text-primary" />
+                      </div>
+                      <div>
+                        <p className="text-xs text-muted-foreground">{item.label}</p>
+                        <p className="text-sm font-medium text-foreground">{item.value}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </MacWindowFrame>
               ))}
             </div>
 
             {/* Education */}
-            <div className="glass rounded-xl p-6 mt-8 hover-glow">
-              <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-primary" />
-                Education
-              </h3>
-              <p className="text-foreground font-medium">Mohandas College of Engineering & Technology</p>
-              <p className="text-sm text-muted-foreground">B.Tech in Computer Science (2022 – Present)</p>
-              <p className="text-xs text-muted-foreground mt-2">
-                Cloud Computing • Responsive Web Dev • Python • Product Management • Java • C Programming
-              </p>
-            </div>
+            <MacWindowFrame title="education.md" className="mt-8">
+              <div className="p-6">
+                <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-primary" />
+                  Education
+                </h3>
+                <p className="text-foreground font-medium">Mohandas College of Engineering & Technology</p>
+                <p className="text-sm text-muted-foreground">B.Tech in Computer Science (2022 – Present)</p>
+                <p className="text-xs text-muted-foreground mt-2">
+                  Cloud Computing • Responsive Web Dev • Python • Product Management • Java • C Programming
+                </p>
+              </div>
+            </MacWindowFrame>
           </div>
         </div>
       </div>

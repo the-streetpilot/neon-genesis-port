@@ -1,4 +1,5 @@
-import { Code, Palette, Cloud, Database, Layout, Terminal } from 'lucide-react';
+import { Code, Palette, Terminal } from 'lucide-react';
+import MacWindowFrame from '@/components/MacWindowFrame';
 
 const skillCategories = [
   {
@@ -40,53 +41,59 @@ const SkillsSection = () => {
         {/* Skills Grid */}
         <div className="grid md:grid-cols-3 gap-6 stagger-children">
           {skillCategories.map((category, categoryIndex) => (
-            <div
+            <MacWindowFrame
               key={categoryIndex}
-              className="glass rounded-2xl p-6 hover-glow group"
-              style={{ animationDelay: `${categoryIndex * 0.1}s` }}
+              title={`${category.title.toLowerCase().replace(/\s+/g, '-')}.config`}
+              className="group"
             >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors group-hover:shadow-neon-sm">
-                  <category.icon size={24} className="text-primary" />
+              <div className="p-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors group-hover:shadow-neon-sm">
+                    <category.icon size={24} className="text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold">{category.title}</h3>
                 </div>
-                <h3 className="text-xl font-semibold">{category.title}</h3>
+                
+                <div className="flex flex-wrap gap-2">
+                  {category.skills.map((skill, skillIndex) => (
+                    <span
+                      key={skillIndex}
+                      className="px-3 py-1.5 text-sm bg-secondary rounded-lg text-foreground hover:bg-primary/20 hover:text-primary transition-all duration-300 cursor-default"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
               </div>
-              
-              <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill, skillIndex) => (
-                  <span
-                    key={skillIndex}
-                    className="px-3 py-1.5 text-sm bg-secondary rounded-lg text-foreground hover:bg-primary/20 hover:text-primary transition-all duration-300 cursor-default"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
+            </MacWindowFrame>
           ))}
         </div>
 
         {/* Skill Bars */}
-        <div className="mt-16 grid md:grid-cols-2 gap-8">
-          {[
-            { name: 'Web Development', level: 90 },
-            { name: 'Graphic Design', level: 95 },
-            { name: 'UI/UX Design', level: 85 },
-            { name: 'Cloud Services', level: 75 },
-          ].map((skill, index) => (
-            <div key={index} className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span className="font-medium">{skill.name}</span>
-                <span className="text-primary">{skill.level}%</span>
-              </div>
-              <div className="h-2 bg-secondary rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-gradient-neon rounded-full transition-all duration-1000 shadow-neon-sm"
-                  style={{ width: `${skill.level}%` }}
-                />
-              </div>
+        <div className="mt-16">
+          <MacWindowFrame title="skills-progress.json">
+            <div className="p-6 grid md:grid-cols-2 gap-8">
+              {[
+                { name: 'Web Development', level: 90 },
+                { name: 'Graphic Design', level: 95 },
+                { name: 'UI/UX Design', level: 85 },
+                { name: 'Cloud Services', level: 75 },
+              ].map((skill, index) => (
+                <div key={index} className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="font-medium">{skill.name}</span>
+                    <span className="text-primary">{skill.level}%</span>
+                  </div>
+                  <div className="h-2 bg-secondary rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-neon rounded-full transition-all duration-1000 shadow-neon-sm"
+                      style={{ width: `${skill.level}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </MacWindowFrame>
         </div>
       </div>
     </section>
