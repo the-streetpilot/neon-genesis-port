@@ -1,4 +1,5 @@
 import { MapPin, Calendar, Briefcase, Award } from 'lucide-react';
+import profileImage from '@/assets/profile-1.jpeg';
 
 const highlights = [
   { icon: MapPin, label: 'Location', value: 'Kerala, India' },
@@ -32,8 +33,12 @@ const AboutSection = () => {
           <div className="relative scroll-animate-left">
             <div className="glass rounded-3xl p-8 hover-glow transition-all duration-500 group">
               <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center relative overflow-hidden">
-                {/* Placeholder visual - can be replaced with actual image */}
-                <div className="text-8xl font-bold gradient-text">VV</div>
+                {/* Profile Image */}
+                <img 
+                  src={profileImage} 
+                  alt="Varun Vinod" 
+                  className="w-full h-full object-cover rounded-2xl transition-transform duration-700 group-hover:scale-105"
+                />
                 
                 {/* Decorative elements */}
                 <div className="absolute top-4 right-4 w-20 h-20 rounded-full border border-primary/30 animate-pulse" />

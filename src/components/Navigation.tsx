@@ -9,6 +9,7 @@ const navItems = [
   { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
   { label: 'Services', href: '#services' },
+  { label: 'Certifications', href: '#certifications' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -42,7 +43,14 @@ const Navigation = () => {
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
+      // Add smooth transition animation to target section
+      element.classList.add('section-transition');
       element.scrollIntoView({ behavior: 'smooth' });
+      
+      // Remove animation class after it completes
+      setTimeout(() => {
+        element.classList.remove('section-transition');
+      }, 1000);
     }
     setIsOpen(false);
   };
