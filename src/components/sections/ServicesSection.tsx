@@ -1,4 +1,5 @@
 import { Palette, Globe, Smartphone, Lightbulb, Layout, Cloud } from 'lucide-react';
+import MacWindowFrame from '../MacWindowFrame';
 
 const services = [
   {
@@ -51,29 +52,28 @@ const ServicesSection = () => {
         {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
           {services.map((service, index) => (
-            <div
-              key={index}
-              className="glass rounded-2xl p-8 hover-glow group cursor-default transition-all duration-500 hover:scale-[1.02]"
-            >
-              {/* Icon */}
-              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 group-hover:shadow-neon-sm transition-all duration-300">
-                <service.icon size={28} className="text-primary" />
+            <MacWindowFrame key={index} title={service.title}>
+              <div className="p-8 group cursor-default">
+                {/* Icon */}
+                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 group-hover:shadow-neon-sm transition-all duration-300">
+                  <service.icon size={28} className="text-primary" />
+                </div>
+                
+                {/* Content */}
+                <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
+                  {service.title}
+                </h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {service.description}
+                </p>
+                
+                {/* Hover indicator */}
+                <div className="mt-6 flex items-center gap-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="text-sm font-medium">Learn more</span>
+                  <span className="group-hover:translate-x-1 transition-transform">→</span>
+                </div>
               </div>
-              
-              {/* Content */}
-              <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
-                {service.title}
-              </h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                {service.description}
-              </p>
-              
-              {/* Hover indicator */}
-              <div className="mt-6 flex items-center gap-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity">
-                <span className="text-sm font-medium">Learn more</span>
-                <span className="group-hover:translate-x-1 transition-transform">→</span>
-              </div>
-            </div>
+            </MacWindowFrame>
           ))}
         </div>
       </div>

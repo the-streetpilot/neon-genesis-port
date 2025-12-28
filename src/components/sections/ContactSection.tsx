@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import MacWindowFrame from '../MacWindowFrame';
 
 const contactInfo = [
   { icon: Mail, label: 'Email', value: 'varun.tenztro@gmail.com', href: 'mailto:varun.tenztro@gmail.com' },
@@ -26,7 +27,6 @@ const ContactSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     toast({
@@ -65,21 +65,22 @@ const ContactSection = () => {
             {/* Contact Details */}
             <div className="space-y-4">
               {contactInfo.map((item, index) => (
-                <a
-                  key={index}
-                  href={item.href}
-                  className="glass rounded-xl p-4 flex items-center gap-4 hover-glow group transition-all duration-300"
-                >
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                    <item.icon size={22} className="text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground">{item.label}</p>
-                    <p className="font-medium text-foreground group-hover:text-primary transition-colors">
-                      {item.value}
-                    </p>
-                  </div>
-                </a>
+                <MacWindowFrame key={index}>
+                  <a
+                    href={item.href}
+                    className="p-4 flex items-center gap-4 group transition-all duration-300"
+                  >
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                      <item.icon size={22} className="text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">{item.label}</p>
+                      <p className="font-medium text-foreground group-hover:text-primary transition-colors">
+                        {item.value}
+                      </p>
+                    </div>
+                  </a>
+                </MacWindowFrame>
               ))}
             </div>
 
@@ -104,71 +105,72 @@ const ContactSection = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="glass rounded-2xl p-8 scroll-animate-right">
-            <h3 className="text-xl font-semibold mb-6">Send a Message</h3>
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label htmlFor="name" className="text-sm text-muted-foreground mb-2 block">
-                  Your Name
-                </label>
-                <Input
-                  id="name"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="John Doe"
-                  required
-                  className="bg-secondary/50 border-border focus:border-primary"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="email" className="text-sm text-muted-foreground mb-2 block">
-                  Email Address
-                </label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="john@example.com"
-                  required
-                  className="bg-secondary/50 border-border focus:border-primary"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="message" className="text-sm text-muted-foreground mb-2 block">
-                  Message
-                </label>
-                <Textarea
-                  id="message"
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  placeholder="Tell me about your project..."
-                  rows={5}
-                  required
-                  className="bg-secondary/50 border-border focus:border-primary resize-none"
-                />
-              </div>
-              
-              <Button
-                type="submit"
-                variant="neon"
-                size="lg"
-                className="w-full"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? (
-                  'Sending...'
-                ) : (
-                  <>
-                    <Send size={18} />
-                    Send Message
-                  </>
-                )}
-              </Button>
-            </form>
-          </div>
+          <MacWindowFrame title="Send a Message" className="scroll-animate-right">
+            <div className="p-8">
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div>
+                  <label htmlFor="name" className="text-sm text-muted-foreground mb-2 block">
+                    Your Name
+                  </label>
+                  <Input
+                    id="name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    placeholder="John Doe"
+                    required
+                    className="bg-secondary/50 border-border focus:border-primary"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="email" className="text-sm text-muted-foreground mb-2 block">
+                    Email Address
+                  </label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    placeholder="john@example.com"
+                    required
+                    className="bg-secondary/50 border-border focus:border-primary"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="message" className="text-sm text-muted-foreground mb-2 block">
+                    Message
+                  </label>
+                  <Textarea
+                    id="message"
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    placeholder="Tell me about your project..."
+                    rows={5}
+                    required
+                    className="bg-secondary/50 border-border focus:border-primary resize-none"
+                  />
+                </div>
+                
+                <Button
+                  type="submit"
+                  variant="neon"
+                  size="lg"
+                  className="w-full"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    'Sending...'
+                  ) : (
+                    <>
+                      <Send size={18} />
+                      Send Message
+                    </>
+                  )}
+                </Button>
+              </form>
+            </div>
+          </MacWindowFrame>
         </div>
       </div>
     </section>
