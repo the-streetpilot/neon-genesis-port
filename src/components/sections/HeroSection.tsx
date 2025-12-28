@@ -133,7 +133,7 @@ const HeroSection = () => {
             size="xl"
             asChild
           >
-            <a href="/resume.pdf" download>
+            <a href="/Varun_Vinod_Resume.pdf" download>
               <Download size={20} />
               Download Resume
             </a>

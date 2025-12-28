@@ -10,6 +10,7 @@ const navItems = [
   { label: 'Projects', href: '#projects' },
   { label: 'Services', href: '#services' },
   { label: 'Testimonials', href: '#testimonials' },
+  { label: 'Resume', href: '#resume' },
   { label: 'Certifications', href: '#certifications' },
   { label: 'Contact', href: '#contact' },
 ];
