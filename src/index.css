@@ -53,6 +53,44 @@
     --shadow-glass: 0 8px 32px hsla(0, 0%, 0%, 0.4);
   }
 
+  /* Light theme */
+  .light {
+    --background: 0 0% 98%;
+    --foreground: 0 0% 8%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 8%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 8%;
+
+    --primary: 348 100% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 94%;
+    --secondary-foreground: 0 0% 15%;
+
+    --muted: 0 0% 90%;
+    --muted-foreground: 0 0% 40%;
+
+    --accent: 348 100% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 85%;
+    --input: 0 0% 85%;
+    --ring: 348 100% 45%;
+
+    --glass-white: 0 0% 0%;
+    --glass-border: 0 0% 80%;
+    
+    --shadow-neon: 0 0 20px hsla(348, 100%, 50%, 0.3), 0 0 40px hsla(348, 100%, 50%, 0.15);
+    --shadow-neon-sm: 0 0 10px hsla(348, 100%, 50%, 0.25);
+    --shadow-glass: 0 8px 32px hsla(0, 0%, 0%, 0.1);
+  }
+
   .dark {
     --background: 0 0% 2%;
     --foreground: 0 0% 98%;

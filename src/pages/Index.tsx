@@ -4,12 +4,14 @@ import AnimatedBackground from '@/components/AnimatedBackground';
 import FloatingElements from '@/components/FloatingElements';
 import Navigation from '@/components/Navigation';
 import ScrollProgress from '@/components/ScrollProgress';
+import ThemeToggle from '@/components/ThemeToggle';
 import HeroSection from '@/components/sections/HeroSection';
 import AboutSection from '@/components/sections/AboutSection';
 import SkillsSection from '@/components/sections/SkillsSection';
 import ExperienceSection from '@/components/sections/ExperienceSection';
 import ProjectsSection from '@/components/sections/ProjectsSection';
 import ServicesSection from '@/components/sections/ServicesSection';
+import TestimonialsSection from '@/components/sections/TestimonialsSection';
 import CertificationsSection from '@/components/sections/CertificationsSection';
 import ContactSection from '@/components/sections/ContactSection';
 import Footer from '@/components/Footer';
@@ -54,11 +56,12 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden transition-colors duration-500">
       <AnimatedBackground />
       <FloatingElements />
       <ScrollProgress />
       <Navigation />
+      <ThemeToggle />
       
       <main>
         <HeroSection />
@@ -67,6 +70,7 @@ const Index = () => {
         <ExperienceSection />
         <ProjectsSection />
         <ServicesSection />
+        <TestimonialsSection />
         <CertificationsSection />
         <ContactSection />
       </main>
