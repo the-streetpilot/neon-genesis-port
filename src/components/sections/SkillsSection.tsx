@@ -1,4 +1,5 @@
 import { Code, Palette, Terminal } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 import MacWindowFrame from '@/components/MacWindowFrame';
 
 const skillCategories = [
@@ -19,7 +20,35 @@ const skillCategories = [
   },
 ];
 
+const skillLevels = [
+  { name: 'Web Development', level: 90 },
+  { name: 'Graphic Design', level: 95 },
+  { name: 'UI/UX Design', level: 85 },
+  { name: 'Cloud Services', level: 75 },
+];
+
 const SkillsSection = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const progressRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (progressRef.current) {
+      observer.observe(progressRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section id="skills" className="py-24 md:py-32 relative overflow-hidden">
       {/* Background decoration with parallax */}
@@ -70,24 +99,25 @@ const SkillsSection = () => {
         </div>
 
         {/* Skill Bars */}
-        <div className="mt-16">
+        <div className="mt-16" ref={progressRef}>
           <MacWindowFrame title="skills-progress.json">
             <div className="p-6 grid md:grid-cols-2 gap-8">
-              {[
-                { name: 'Web Development', level: 90 },
-                { name: 'Graphic Design', level: 95 },
-                { name: 'UI/UX Design', level: 85 },
-                { name: 'Cloud Services', level: 75 },
-              ].map((skill, index) => (
+              {skillLevels.map((skill, index) => (
                 <div key={index} className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span className="font-medium">{skill.name}</span>
-                    <span className="text-primary">{skill.level}%</span>
+                    <span className="text-primary">
+                      {isVisible ? skill.level : 0}%
+                    </span>
                   </div>
                   <div className="h-2 bg-secondary rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-gradient-neon rounded-full transition-all duration-1000 shadow-neon-sm"
-                      style={{ width: `${skill.level}%` }}
+                      className="h-full bg-gradient-neon rounded-full shadow-neon-sm transition-all ease-out"
+                      style={{ 
+                        width: isVisible ? `${skill.level}%` : '0%',
+                        transitionDuration: `${1000 + index * 200}ms`,
+                        transitionDelay: `${index * 100}ms`
+                      }}
                     />
                   </div>
                 </div>
