@@ -1,6 +1,7 @@
 import { Code, Palette, Terminal, LucideIcon } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import MacWindowFrame from '@/components/MacWindowFrame';
+import SkillMindMap from '@/components/SkillMindMap';
 import {
   Tooltip,
   TooltipContent,
@@ -218,6 +219,15 @@ const SkillsSection = () => {
           <h2 className="text-3xl md:text-5xl font-bold">
             Tools & <span className="gradient-text">Technologies</span>
           </h2>
+        </div>
+
+        {/* Interactive Skill Mind Map */}
+        <div className="mb-16">
+          <MacWindowFrame title="skill-network.map">
+            <div className="p-4">
+              <SkillMindMap isVisible={isVisible} />
+            </div>
+          </MacWindowFrame>
         </div>
 
         {/* Circular Progress Indicators */}
